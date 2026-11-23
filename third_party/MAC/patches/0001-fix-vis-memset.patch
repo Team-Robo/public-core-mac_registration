@@ -1,0 +1,20 @@
+--- a/Linux/registration.cpp
++++ b/Linux/registration.cpp
+@@ -27,7 +27,7 @@
+ void find_largest_clique_of_node(Eigen::MatrixXf& Graph, igraph_vector_ptr_t* cliques, vector<Corre_3DMatch>& correspondence, node_cliques* result, vector<int>& remain, int num_node, int est_num, string descriptor) {
+ 
+     int* vis = new int[igraph_vector_ptr_size(cliques)];
+-	memset(vis, 0, igraph_vector_ptr_size(cliques));
++	memset(vis, 0, igraph_vector_ptr_size(cliques) * sizeof(int));
+ #pragma omp parallel for
+ 	for (int i = 0; i < num_node; i++)
+ 	{
+@@ -170,7 +170,7 @@
+ #else
+ void find_largest_clique_of_node(Eigen::MatrixXf& Graph, igraph_vector_int_list_t* cliques, vector<Corre_3DMatch>& correspondence, node_cliques* result, vector<int>& remain, int num_node, int est_num, string descriptor) {
+     int* vis = new int[igraph_vector_int_list_size(cliques)];
+-    memset(vis, 0, igraph_vector_int_list_size(cliques));
++    memset(vis, 0, igraph_vector_int_list_size(cliques) * sizeof(int));
+ #pragma omp parallel for
+     for (int i = 0; i < num_node; i++)
+     {

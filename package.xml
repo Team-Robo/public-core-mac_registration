@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>mac_registration</name>
+  <version>0.1.0</version>
+  <description>
+    6-DoF object/scene pose by registering a live point cloud against an auto-captured
+    reference with MAC (3D Registration with Maximal Cliques, CVPR 2023). Wraps the upstream
+    C++ implementation (vendored under third_party/MAC, MIT) without reimplementing it.
+  </description>
+  <maintainer email="teamrobontu@gmail.com">Nanyang Technological University Team Robo</maintainer>
+  <author>Dun Yan Ong</author>
+  <license>Apache-2.0</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <buildtool_depend>rosidl_default_generators</buildtool_depend>
+
+  <depend>rclcpp</depend>
+  <depend>std_msgs</depend>
+  <depend>std_srvs</depend>
+  <depend>sensor_msgs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>vision_msgs</depend>
+  <depend>tf2_ros</depend>
+  <depend>pcl_conversions</depend>
+  <depend>libpcl-all-dev</depend>
+  <depend>eigen</depend>
+  <!-- igraph 0.10.17 is built from source by scripts/install_igraph.sh (apt only has 0.9.6). -->
+
+  <exec_depend>rosidl_default_runtime</exec_depend>
+  <exec_depend>realsense2_camera</exec_depend>
+  <exec_depend>rviz2</exec_depend>
+  <exec_depend>ros2bag</exec_depend>
+  <exec_depend>rosbag2_storage_mcap</exec_depend>
+
+  <member_of_group>rosidl_interface_packages</member_of_group>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

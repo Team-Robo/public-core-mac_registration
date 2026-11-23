@@ -1,0 +1,27 @@
+# ==============================================================================
+# tabletop_object_cloud: GPU-free stand-in for the YOLO/SAM -> object_pointcloud chain.
+# Output format = /yolo_sam/cleaned_points (PointXYZI, intensity 1 = object, 0 = rest).
+# Camera frame: x right, y down, z forward (camera_color_optical_frame).
+# ==============================================================================
+tabletop_object_cloud:
+  ros__parameters:
+    depth_topic: "/camera/camera/aligned_depth_to_color/image_raw"
+    camera_info_topic: "/camera/camera/color/camera_info"
+    output_topic: "/mac_registration/tabletop_points"
+    pixel_stride: 1          # 480x270 (WSL default) is already ~3 mm/px at 0.7 m; use 2 at 848x480
+    z_min: 0.3               # [m] the D455 is unreliable closer than ~0.6 m
+    z_max: 1.2               # [m]
+    depth_scale: 0.001       # 16UC1 millimetres -> metres
+    roi_min_x: -0.4          # [m] crop box
+    roi_max_x: 0.4
+    roi_min_y: -0.4
+    roi_max_y: 0.4
+    plane_distance: 0.01     # points within 1 cm of the table plane are table
+    plane_min_share: 0.15    # a plane counts only if it holds 15 % of the crop (never an object face)
+    max_planes: 3            # remove the table AND walls; with 1, a shelf against a wall flickers
+    cluster_tolerance: 0.01
+    min_cluster_points: 200
+    max_cluster_points: 50000
+    work_voxel: 0.003        # thin the crop to 3 mm before segmenting (like object_pointcloud's 3 mm)
+    rest_stride: 4           # keep every 4th non-object point
+    max_rate_hz: 10.0

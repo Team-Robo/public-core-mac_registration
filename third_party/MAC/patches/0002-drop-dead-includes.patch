@@ -1,0 +1,30 @@
+--- a/Linux/desc_dec.cpp
++++ b/Linux/desc_dec.cpp
+@@ -15,7 +15,6 @@
+ #include <pcl/surface/mls.h>
+ #include <pcl/common/centroid.h>
+ #include <pcl/common/eigen.h>
+-#include <pcl/visualization/pcl_visualizer.h>
+ #include<pcl/keypoints/iss_3d.h>
+ #include "Eva.h"
+ /*******************************************************************************Descriptor********************************************************/
+--- a/Linux/funcs.cpp
++++ b/Linux/funcs.cpp
+@@ -12,7 +12,6 @@
+ #include <pcl/filters/voxel_grid.h>
+ #include <pcl/surface/gp3.h>
+ #include <pcl/surface/mls.h>
+-#include <pcl/visualization/pcl_visualizer.h>
+ #include "Eva.h"
+ /*******************************************************************************dataload********************************************************/
+ int XYZorMeshlabPly_Read(string Filename, PointCloudPtr& cloud)
+--- a/Linux/registration.cpp
++++ b/Linux/registration.cpp
+@@ -4,7 +4,6 @@
+ #include <pcl/features/normal_3d_omp.h>
+ #include <pcl/features/shot.h>
+ #include <pcl/registration/transformation_estimation_svd.h>
+-#include <pcl/visualization/pcl_visualizer.h>
+ //#include <direct.h>
+ #include <iostream>
+ #include <string>

@@ -1,0 +1,29 @@
+# The core-anygrasp root .gitignore ignores every *.yaml: keep this package's configs.
+!config/*.yaml
+
+# Point clouds (references live in ~/.ros/mac_registration, never in the repo)
+*.pcd
+*.ply
+
+# Recordings
+*.mcap
+*.db3
+*.bag
+rosbag2_*/
+
+# Run outputs
+results/
+*.csv
+*.log
+core
+core.*
+
+# Caches and editor files
+__pycache__/
+*.pyc
+.vscode/
+.idea/
+*.swp
+*~
+
+docs/

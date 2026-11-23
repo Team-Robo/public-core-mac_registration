@@ -1,0 +1,17 @@
+mac_registration
+Copyright 2026 Dun Yan Ong
+
+This package is licensed under the Apache License, Version 2.0 (see LICENSE), except for
+the directory third_party/MAC, which contains code from:
+
+  3D Registration with Maximal Cliques (MAC)
+  https://github.com/zhangxy0517/3D-Registration-with-Maximal-Cliques
+  Copyright (c) 2023 zhangxy0517
+  Licensed under the MIT License (see third_party/MAC/LICENSE)
+
+Two small patches were applied to the vendored files; they are listed in
+third_party/MAC/UPSTREAM.md and stored in third_party/MAC/patches/.
+
+If you use this work, please cite:
+  Xiyu Zhang, Jiaqi Yang, Shikun Zhang, Yanning Zhang.
+  3D Registration with Maximal Cliques. CVPR 2023.

@@ -1,0 +1,62 @@
+# ==============================================================================
+# mac_registration, OBJECT profile (a single object on a table, D455 at 0.6-0.9 m)
+# Every key is explained in docs/details.md section 4. Paper defaults are marked [paper].
+# ==============================================================================
+mac_registration:
+  ros__parameters:
+    label: "default"                 # reference name; class_id; TF child "<label>_frame"
+    intensity_mode: "target"         # target (intensity > 0.5) | obstacle | all
+    reference_dir: "~/.ros/mac_registration"
+
+    # Reference auto-capture: the first frame that is big enough and still for N frames
+    auto_capture: true
+    capture_min_points: 200
+    capture_min_extent: 0.03         # [m] largest bounding-box side
+    capture_max_extent: 1.5          # [m]
+    capture_stability_frames: 3
+    capture_centroid_tolerance: 0.005  # [m] centroid motion allowed between those frames
+    capture_warmup_frames: 15        # ignored after start-up: a fresh D455's depth is still filling in
+
+    # Front-end
+    voxel_size: 0.005                # [m] the master scale knob
+    point_resolution: 0.0            # [m] pr; 0 = measure on the raw input
+    normal_radius: 0.0               # [m] 0 = 2 x voxel
+    fpfh_radius: 0.0                 # [m] 0 = 5 x voxel
+    keypoints: "none"                # none (all voxel points) | uniform
+    max_keypoints: 2000
+    mutual_matching: true
+    max_correspondences: 1000        # MAC time grows fast with this (docs/details.md section 1.5)
+    min_correspondences: 10
+    random_seed: 42
+
+    mac:
+      use_sog: true                  # [paper] second-order graph
+      evaluation_metric: "MAE"       # [paper] MAE | MSE | inlier
+      t_cmp: 0.99                    # [paper]
+      d_cmp_pr: 10.0                 # [paper] d_cmp = 10 pr
+      inlier_thresh_pr: 10.0         # [paper] scoring threshold tau = 10 pr
+      min_clique_size: 3             # [paper]
+      clique_ranking: false          # [paper] off (top-K costs recall)
+      top_k: 100
+      refinement_iterations: 20      # [paper code]
+      max_graph_edges: 150000        # explosion guard: raise t_cmp, then halve pairs
+      max_cliques: 20000             # explosion guard: stop enumeration (200k cost 2.5 s on dense graphs, same accuracy)
+
+    icp:
+      enable: true
+      max_corr_dist: 0.0             # [m] 0 = 2 x voxel
+      max_iterations: 30
+    fitness_radius: 0.0              # [m] 0 = voxel
+
+    # Quality gate: publish nothing unless all three hold
+    gate:
+      min_inliers: 20
+      max_mae: 0.010                 # [m] ~2 x voxel
+      min_fitness: 0.4
+
+    publish_tf: false
+    tf_child_frame: ""
+    publish_aligned_cloud: true
+    publish_diagnostics: true
+    num_threads: 0                   # 0 = min(4, cores)
+    warn_throttle_sec: 2.0
